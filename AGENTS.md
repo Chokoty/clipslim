@@ -1,6 +1,8 @@
 # Agent notes
 
-Local clipboard converter. Images never leave the machine. No server, no accounts, no extra UI.
+clipslim is a local clipboard converter. Images never leave the machine. No server, no accounts, no extra UI.
+
+Product name is **clipslim**. Cache dirs and UserDefaults keys stay `webp-paste` so existing installs keep settings.
 
 ## Skills
 
@@ -13,7 +15,7 @@ Use **ponytail** (simplest thing that works) and **superpowers** (TDD, verify be
 ./mac/build.sh              # macOS app only
 # Windows (PowerShell):
 ./win/build.ps1
-./win/dist/webp-paste.exe --convert fixtures/screenshot.png out.webp
+./win/dist/clipslim.exe --convert fixtures/screenshot.png out.webp
 ```
 
 Needs Homebrew `webp` on macOS (`libwebp.a` + `libsharpyuv.a`, statically linked). Windows encode is ImageSharp (pure managed). Runtime brew is not required on Mac.
@@ -42,4 +44,4 @@ git tag v1.0.1
 git push origin v1.0.1
 ```
 
-Do not attach binaries by hand unless the workflow is down. Asset names must stay `webp-paste-macos-arm64.zip` and `webp-paste-windows-x64.exe`.
+Do not attach binaries by hand unless the workflow is down. Asset names must stay `clipslim-macos-arm64.zip` and `clipslim-windows-x64.exe`.

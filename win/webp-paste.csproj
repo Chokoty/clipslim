@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWindowsForms>true</UseWindowsForms>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
-    <AssemblyName>webp-paste</AssemblyName>
+    <AssemblyName>clipslim</AssemblyName>
     <RootNamespace>WebpPaste</RootNamespace>
     <Version>1.0.0</Version>
     <ApplicationIcon>../docs/assets/icon.ico</ApplicationIcon>

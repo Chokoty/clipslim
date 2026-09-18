@@ -11,7 +11,7 @@
   <key>CFBundleInfoDictionaryVersion</key>
   <string>6.0</string>
   <key>CFBundleName</key>
-  <string>webp-paste</string>
+  <string>clipslim</string>
   <key>CFBundlePackageType</key>
   <string>APPL</string>
   <key>CFBundleShortVersionString</key>
@@ -25,6 +25,6 @@
   <key>NSHighResolutionCapable</key>
   <true/>
   <key>NSPasteboardUsageDescription</key>
-  <string>복사한 이미지를 WebP로 바꿔 캔버스에 붙여넣기 위해 클립보드를 읽습니다.</string>
+  <string>복사한 이미지를 작은 파일로 바꿔 캔버스에 붙여넣기 위해 클립보드를 읽습니다.</string>
 </dict>
 </plist>

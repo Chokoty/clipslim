@@ -1,9 +1,9 @@
 <h1 align="center">
-  <img src="../assets/icon.png" alt="webp-paste" width="72" valign="middle" /> webp-paste
+  <img src="../assets/icon.png" alt="clipslim" width="72" valign="middle" /> clipslim
 </h1>
 
 <p align="center">
-  <a href="https://github.com/Chokoty/webp-paste"><img src="https://img.shields.io/github/stars/Chokoty/webp-paste?style=flat&label=%E2%98%85&color=c43c11" alt="GitHub stars" /></a>
+  <a href="https://github.com/Chokoty/clipslim"><img src="https://img.shields.io/github/stars/Chokoty/clipslim?style=flat&label=%E2%98%85&color=c43c11" alt="GitHub stars" /></a>
   <img src="https://img.shields.io/badge/license-MIT-1a1612?style=flat" alt="License: MIT" />
   <img src="https://img.shields.io/badge/macOS%20%7C%20Windows-c43c11?style=flat" alt="Supported platforms: macOS and Windows" />
   <img src="https://img.shields.io/badge/local-no%20upload-2c6e49?style=flat" alt="Runs locally, no upload" />
@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <strong>스크린샷을 복사하면, 작은 WebP 파일을 붙입니다.</strong><br/>
+  <strong>스크린샷을 복사하면, 작은 파일을 붙입니다.</strong><br/>
   맥은 메뉴 막대, 윈도우는 트레이. 이미지는 이 컴퓨터 밖으로 나가지 않습니다.
 </p>
 
@@ -22,7 +22,7 @@
   <img src="../assets/hero.png" alt="PNG 스크린샷을 WebP로 줄여 tldraw / Excalidraw에 붙이는 흐름" width="960" />
 </p>
 
-tldraw와 Obsidian Excalidraw는 클립보드에 있는 것을 그대로 붙입니다. PNG 스크린샷은 용량이 큽니다. Chrome은 클립보드에 WebP를 쓰지 못하므로 (`NotAllowedError`), 이 앱은 **파일**을 올려 둡니다. `⌘V` / `Ctrl+V`가 그 파일을 붙입니다.
+tldraw와 Obsidian Excalidraw는 클립보드에 있는 것을 그대로 붙입니다. PNG 스크린샷은 용량이 큽니다. Chrome은 클립보드에 WebP를 쓰지 못하므로 (`NotAllowedError`), clipslim은 **파일**을 올려 둡니다 (WebP, 맥에서는 AVIF도). `⌘V` / `Ctrl+V`가 그 파일을 붙입니다.
 
 픽스처 PNG(1600×900, 63.3 KB)는 맥에서 **8.6 KB WebP (−86%)**.
 
@@ -67,19 +67,19 @@ WebP는 libwebp를 정적 링크합니다 (Homebrew는 빌드할 때만). AVIF�
 
 ## 설치
 
-- **[Releases에서 받기](https://github.com/Chokoty/webp-paste/releases/latest)**
-- 직접: [macOS Apple Silicon](https://github.com/Chokoty/webp-paste/releases/latest/download/webp-paste-macos-arm64.zip) · [Windows x64](https://github.com/Chokoty/webp-paste/releases/latest/download/webp-paste-windows-x64.exe)
+- **[Releases에서 받기](https://github.com/Chokoty/clipslim/releases/latest)**
+- 직접: [macOS Apple Silicon](https://github.com/Chokoty/clipslim/releases/latest/download/clipslim-macos-arm64.zip) · [Windows x64](https://github.com/Chokoty/clipslim/releases/latest/download/clipslim-windows-x64.exe)
 
 ### macOS
 
-zip을 풀고 `webp-paste.app`을 엽니다. 서명 없음: 처음엔 **우클릭 → 열기**.
+zip을 풀고 `clipslim.app`을 엽니다. 서명 없음: 처음엔 **우클릭 → 열기**.
 
 또는 빌드:
 
 ```bash
 brew install webp          # 빌드할 때만. 앱은 libwebp.a를 링크합니다
 ./mac/build.sh
-open mac/dist/webp-paste.app
+open mac/dist/clipslim.app
 ```
 
 메뉴 막대 아이콘 켜짐 → 스크린샷 복사 → 캔버스에 붙이기. 원본 PNG: **변환** 체크 해제. 포맷: **포맷 → WebP / AVIF**.
@@ -88,13 +88,13 @@ open mac/dist/webp-paste.app
 
 ### Windows
 
-`webp-paste-windows-x64.exe`를 실행합니다. 서명 없음: SmartScreen 경고가 날 수 있습니다. 실행에 .NET SDK는 필요 없습니다.
+`clipslim-windows-x64.exe`를 실행합니다. 서명 없음: SmartScreen 경고가 날 수 있습니다. 실행에 .NET SDK는 필요 없습니다.
 
 또는 [.NET 8 SDK](https://dot.net)로 빌드:
 
 ```powershell
 ./win/build.ps1
-./win/dist/webp-paste.exe
+./win/dist/clipslim.exe
 ```
 
 트레이 아이콘 → 복사 → `Ctrl+V`. WebP만 (AVIF 없음). 임시 파일: `%LOCALAPPDATA%\webp-paste\`.

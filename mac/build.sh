@@ -18,7 +18,7 @@ if [[ ! -f "$LIBWEBP" ]]; then
   exit 1
 fi
 
-DIST="$ROOT/dist/webp-paste.app"
+DIST="$ROOT/dist/clipslim.app"
 MACOS="$DIST/Contents/MacOS"
 mkdir -p "$MACOS"
 cp "$ROOT/Info.plist" "$DIST/Contents/Info.plist"

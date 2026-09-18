@@ -1,9 +1,9 @@
 <h1 align="center">
-  <img src="docs/assets/icon.png" alt="webp-paste" width="72" valign="middle" /> webp-paste
+  <img src="docs/assets/icon.png" alt="clipslim" width="72" valign="middle" /> clipslim
 </h1>
 
 <p align="center">
-  <a href="https://github.com/Chokoty/webp-paste"><img src="https://img.shields.io/github/stars/Chokoty/webp-paste?style=flat&label=%E2%98%85&color=c43c11" alt="GitHub stars" /></a>
+  <a href="https://github.com/Chokoty/clipslim"><img src="https://img.shields.io/github/stars/Chokoty/clipslim?style=flat&label=%E2%98%85&color=c43c11" alt="GitHub stars" /></a>
   <img src="https://img.shields.io/badge/license-MIT-1a1612?style=flat" alt="License: MIT" />
   <img src="https://img.shields.io/badge/macOS%20%7C%20Windows-c43c11?style=flat" alt="Supported platforms: macOS and Windows" />
   <img src="https://img.shields.io/badge/local-no%20upload-2c6e49?style=flat" alt="Runs locally, no upload" />
@@ -14,15 +14,15 @@
 </p>
 
 <p align="center">
-  <strong>Copy a screenshot. Paste a small WebP file.</strong><br/>
+  <strong>Copy a screenshot. Paste a smaller file.</strong><br/>
   Menu bar on Mac, tray on Windows. The image never leaves the machine.
 </p>
 
 <p align="center">
-  <img src="docs/assets/hero.png" alt="Copy a PNG screenshot, shrink it to WebP, paste into tldraw or Excalidraw" width="960" />
+  <img src="docs/assets/hero.png" alt="Copy a PNG screenshot, shrink it, paste into tldraw or Excalidraw" width="960" />
 </p>
 
-tldraw and Obsidian Excalidraw take whatever is on the clipboard. A PNG screenshot is large. Chrome will not put WebP on the clipboard (`NotAllowedError`), so this app writes a **file** instead. `⌘V` / `Ctrl+V` pastes that file.
+tldraw and Obsidian Excalidraw take whatever is on the clipboard. A PNG screenshot is large. Chrome will not put WebP on the clipboard (`NotAllowedError`), so clipslim writes a **file** instead (WebP, or AVIF on Mac). `⌘V` / `Ctrl+V` pastes that file.
 
 On the fixture PNG (1600×900, 63.3 KB) the Mac encoder produces **8.6 KB WebP (−86%)**.
 
@@ -34,7 +34,7 @@ On the fixture PNG (1600×900, 63.3 KB) the Mac encoder produces **8.6 KB WebP (
 
 ### Menu bar / tray
 
-Always on. Copy an image; the clipboard becomes a `.webp` file. Turn **변환** off when you need the original PNG.
+clipslim slims the clipboard. Copy an image, paste a small file. WebP by default, AVIF on Mac. Turn **변환** off when you need the original PNG.
 
 </td>
 <td width="50%" valign="top">
@@ -67,19 +67,19 @@ Same quality and max edge. Clipboard write is a file drop list, not a DIB, so ca
 
 ## Install
 
-- **[Download from Releases](https://github.com/Chokoty/webp-paste/releases/latest)**
-- Direct: [macOS Apple Silicon](https://github.com/Chokoty/webp-paste/releases/latest/download/webp-paste-macos-arm64.zip) · [Windows x64](https://github.com/Chokoty/webp-paste/releases/latest/download/webp-paste-windows-x64.exe)
+- **[Download from Releases](https://github.com/Chokoty/clipslim/releases/latest)**
+- Direct: [macOS Apple Silicon](https://github.com/Chokoty/clipslim/releases/latest/download/clipslim-macos-arm64.zip) · [Windows x64](https://github.com/Chokoty/clipslim/releases/latest/download/clipslim-windows-x64.exe)
 
 ### macOS
 
-Unzip and open `webp-paste.app`. Unsigned: first launch is **right-click → Open**.
+Unzip and open `clipslim.app`. Unsigned: first launch is **right-click → Open**.
 
 Or build:
 
 ```bash
 brew install webp          # build only; the app links libwebp.a
 ./mac/build.sh
-open mac/dist/webp-paste.app
+open mac/dist/clipslim.app
 ```
 
 Menu bar icon on → copy a screenshot → paste into the canvas. Original PNG: uncheck **변환**. Format: **포맷 → WebP / AVIF**.
@@ -88,13 +88,13 @@ Temps: `~/Library/Caches/webp-paste/`.
 
 ### Windows
 
-Run `webp-paste-windows-x64.exe`. Unsigned: SmartScreen may warn. No .NET SDK needed to run.
+Run `clipslim-windows-x64.exe`. Unsigned: SmartScreen may warn. No .NET SDK needed to run.
 
 Or build with [.NET 8 SDK](https://dot.net):
 
 ```powershell
 ./win/build.ps1
-./win/dist/webp-paste.exe
+./win/dist/clipslim.exe
 ```
 
 Tray icon → copy → `Ctrl+V`. WebP only (no AVIF). Temps: `%LOCALAPPDATA%\webp-paste\`.

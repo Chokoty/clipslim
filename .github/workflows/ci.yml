@@ -29,7 +29,7 @@ jobs:
         shell: pwsh
         run: |
           $out = Join-Path $env:TEMP "out.webp"
-          & ./win/dist/webp-paste.exe --convert ./fixtures/screenshot.png $out
+          & ./win/dist/clipslim.exe --convert ./fixtures/screenshot.png $out
           if (-not (Test-Path $out)) { throw "convert produced no file (exit $LASTEXITCODE)" }
           $bytes = [IO.File]::ReadAllBytes($out)
           $riff = [Text.Encoding]::ASCII.GetString($bytes[0..3])
@@ -40,5 +40,5 @@ jobs:
           Write-Host "ok webp $($bytes.Length) from $src"
       - uses: actions/upload-artifact@v4
         with:
-          name: webp-paste-windows
-          path: win/dist/webp-paste.exe
+          name: clipslim-windows
+          path: win/dist/clipslim.exe

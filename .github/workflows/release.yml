@@ -21,11 +21,11 @@ jobs:
       - name: Build and convert fixture
         run: ./scripts/check.sh
       - name: Zip .app
-        run: ditto -c -k --keepParent mac/dist/webp-paste.app webp-paste-macos-arm64.zip
+        run: ditto -c -k --keepParent mac/dist/clipslim.app clipslim-macos-arm64.zip
       - uses: actions/upload-artifact@v4
         with:
           name: macos
-          path: webp-paste-macos-arm64.zip
+          path: clipslim-macos-arm64.zip
           if-no-files-found: error
 
   windows:
@@ -42,7 +42,7 @@ jobs:
         shell: pwsh
         run: |
           $out = Join-Path $env:TEMP "out.webp"
-          & ./win/dist/webp-paste.exe --convert ./fixtures/screenshot.png $out
+          & ./win/dist/clipslim.exe --convert ./fixtures/screenshot.png $out
           if (-not (Test-Path $out)) { throw "convert produced no file (exit $LASTEXITCODE)" }
           $bytes = [IO.File]::ReadAllBytes($out)
           $riff = [Text.Encoding]::ASCII.GetString($bytes[0..3])
@@ -54,7 +54,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: windows
-          path: win/dist/webp-paste.exe
+          path: win/dist/clipslim.exe
           if-no-files-found: error
 
   publish:
@@ -70,10 +70,10 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p out
-          cp dist/macos/webp-paste-macos-arm64.zip out/
-          cp dist/windows/webp-paste.exe out/webp-paste-windows-x64.exe
+          cp dist/macos/clipslim-macos-arm64.zip out/
+          cp dist/windows/clipslim.exe out/clipslim-windows-x64.exe
           cd out
-          sha256sum webp-paste-macos-arm64.zip webp-paste-windows-x64.exe | tee checksums.txt
+          sha256sum clipslim-macos-arm64.zip clipslim-windows-x64.exe | tee checksums.txt
           ls -lh
       - name: Create GitHub Release
         env:
@@ -84,28 +84,28 @@ jobs:
           MAC_SHA=$(cut -d' ' -f1 out/checksums.txt | sed -n '1p')
           WIN_SHA=$(cut -d' ' -f1 out/checksums.txt | sed -n '2p')
           cat > notes.md <<EOF
-          Copy a screenshot. Paste a small WebP file. Menu bar on Mac, tray on Windows. The image never leaves the machine.
+          Copy a screenshot. Paste a smaller file. Menu bar on Mac, tray on Windows. The image never leaves the machine.
 
           ## Downloads
 
           | Platform | File |
           |---|---|
-          | macOS (Apple Silicon) | [webp-paste-macos-arm64.zip](https://github.com/${{ github.repository }}/releases/download/${TAG}/webp-paste-macos-arm64.zip) |
-          | Windows (x64) | [webp-paste-windows-x64.exe](https://github.com/${{ github.repository }}/releases/download/${TAG}/webp-paste-windows-x64.exe) |
+          | macOS (Apple Silicon) | [clipslim-macos-arm64.zip](https://github.com/${{ github.repository }}/releases/download/${TAG}/clipslim-macos-arm64.zip) |
+          | Windows (x64) | [clipslim-windows-x64.exe](https://github.com/${{ github.repository }}/releases/download/${TAG}/clipslim-windows-x64.exe) |
 
           macOS is unsigned: first launch is **right-click → Open**. Windows is unsigned: SmartScreen may warn. The Windows build is self-contained (.NET 8 bundled).
 
           ## SHA-256
 
           \`\`\`
-          ${MAC_SHA}  webp-paste-macos-arm64.zip
-          ${WIN_SHA}  webp-paste-windows-x64.exe
+          ${MAC_SHA}  clipslim-macos-arm64.zip
+          ${WIN_SHA}  clipslim-windows-x64.exe
           \`\`\`
           EOF
           if gh release view "$TAG" --repo "${{ github.repository }}" >/dev/null 2>&1; then
             gh release upload "$TAG" \
-              out/webp-paste-macos-arm64.zip \
-              out/webp-paste-windows-x64.exe \
+              out/clipslim-macos-arm64.zip \
+              out/clipslim-windows-x64.exe \
               --repo "${{ github.repository }}" \
               --clobber
             gh release edit "$TAG" \
@@ -117,6 +117,6 @@ jobs:
               --title "$TAG" \
               --notes-file notes.md \
               --generate-notes \
-              out/webp-paste-macos-arm64.zip \
-              out/webp-paste-windows-x64.exe
+              out/clipslim-macos-arm64.zip \
+              out/clipslim-windows-x64.exe
           fi

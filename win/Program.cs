@@ -155,7 +155,7 @@ sealed class App : Form
         Opacity = 0;
         Width = 0;
         Height = 0;
-        Text = "webp-paste";
+        Text = "clipslim";
 
         on = LoadOn();
         notify = LoadNotify();
@@ -183,7 +183,7 @@ sealed class App : Form
 
         tray = new NotifyIcon
         {
-            Text = "webp-paste",
+            Text = "clipslim",
             Visible = true,
             ContextMenuStrip = menu,
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath) ?? SystemIcons.Application,
@@ -295,7 +295,7 @@ sealed class App : Form
             lastStatus = $"{Convert.Bytes(original)} → {Convert.Bytes(data.Length)} WebP{delta}";
             Rebuild();
             if (notify)
-                tray.ShowBalloonTip(2400, sourceName ?? "webp-paste", lastStatus, ToolTipIcon.None);
+                tray.ShowBalloonTip(2400, sourceName ?? "clipslim", lastStatus, ToolTipIcon.None);
         }
         catch (Exception ex)
         {
@@ -313,7 +313,7 @@ sealed class App : Form
         lastStatus = message;
         Rebuild();
         if (notify)
-            tray.ShowBalloonTip(2400, "webp-paste", message, ToolTipIcon.Error);
+            tray.ShowBalloonTip(2400, "clipslim", message, ToolTipIcon.Error);
     }
 
     void Toggle()
@@ -333,7 +333,7 @@ sealed class App : Form
     void ApplyOnState()
     {
         toggle.Checked = on;
-        tray.Text = on ? "webp-paste" : "webp-paste (끔)";
+        tray.Text = on ? "clipslim" : "clipslim (끔)";
         Rebuild();
     }
 
@@ -362,7 +362,7 @@ sealed class App : Form
         if (dialog.ShowDialog() != DialogResult.OK) return;
         if (string.Equals(dialog.FileName, lastFile, StringComparison.OrdinalIgnoreCase)) return;
         File.Copy(lastFile, dialog.FileName, overwrite: true);
-        tray.ShowBalloonTip(2400, "webp-paste", "저장 " + Path.GetFileName(dialog.FileName), ToolTipIcon.None);
+        tray.ShowBalloonTip(2400, "clipslim", "저장 " + Path.GetFileName(dialog.FileName), ToolTipIcon.None);
     }
 
     static string OnPath() => Path.Combine(Convert.CacheDir(), "on");

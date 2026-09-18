@@ -6,4 +6,4 @@ dotnet publish (Join-Path $Root "webp-paste.csproj") `
   -p:PublishSingleFile=true `
   -p:IncludeNativeLibrariesForSelfExtract=true `
   -o $Out
-Write-Host "built $Out\webp-paste.exe"
+Write-Host "built $Out\clipslim.exe"

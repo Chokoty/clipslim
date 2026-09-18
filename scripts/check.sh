@@ -1,7 +1,7 @@
 #!/bin/zsh
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-BIN="$ROOT/mac/dist/webp-paste.app/Contents/MacOS/WebPPaste"
+BIN="$ROOT/mac/dist/clipslim.app/Contents/MacOS/WebPPaste"
 
 "$ROOT/mac/build.sh"
 
