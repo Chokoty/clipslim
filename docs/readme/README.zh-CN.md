@@ -86,7 +86,7 @@ open mac/dist/clipslim.app
 
 菜单栏图标打开 → 复制截图 → 粘贴到画布。原始 PNG：取消勾选 **변환**。格式：**포맷 → WebP / AVIF**。
 
-临时文件：`~/Library/Caches/webp-paste/`。
+临时文件：`~/Library/Caches/clipslim/`。
 
 ### Windows
 
@@ -99,7 +99,7 @@ open mac/dist/clipslim.app
 ./win/dist/clipslim.exe
 ```
 
-托盘图标 → 复制 → `Ctrl+V`。只有 WebP（没有 AVIF）。临时文件：`%LOCALAPPDATA%\webp-paste\`。
+托盘图标 → 复制 → `Ctrl+V`。只有 WebP（没有 AVIF）。临时文件：`%LOCALAPPDATA%\clipslim\`。
 
 ## 网页备用（拖拽 / 保存）
 
@@ -125,7 +125,7 @@ ImageIO 不能写 WebP。细节见 [`docs/decisions/001-encode-backends.md`](../
 
 ```bash
 ./scripts/check.sh     # macOS：重新构建并编码 fixtures/screenshot.png
-git tag v1.0.1 && git push origin v1.0.1   # GitHub Release（macOS zip + Windows exe）
+git tag v1.0.3 && git push origin v1.0.3   # GitHub Release（macOS zip + Windows exe）
 ```
 
 `scripts/check.sh` 必须继续产出比测试图更小的 RIFF/WEBP。代理规则：[`AGENTS.md`](../../AGENTS.md)。规格：[`docs/superpowers/specs/`](../superpowers/specs/)。

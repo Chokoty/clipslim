@@ -66,7 +66,7 @@ enum Converter {
 
   static func cacheDir() throws -> URL {
     let base = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
-    let dir = base.appendingPathComponent("webp-paste", isDirectory: true)
+    let dir = base.appendingPathComponent("clipslim", isDirectory: true)
     try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
     return dir
   }

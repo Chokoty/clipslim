@@ -84,7 +84,7 @@ open mac/dist/clipslim.app
 
 메뉴 막대 아이콘 켜짐 → 스크린샷 복사 → 캔버스에 붙이기. 원본 PNG: **변환** 체크 해제. 포맷: **포맷 → WebP / AVIF**.
 
-임시 파일: `~/Library/Caches/webp-paste/`.
+임시 파일: `~/Library/Caches/clipslim/`.
 
 ### Windows
 
@@ -97,7 +97,7 @@ open mac/dist/clipslim.app
 ./win/dist/clipslim.exe
 ```
 
-트레이 아이콘 → 복사 → `Ctrl+V`. WebP만 (AVIF 없음). 임시 파일: `%LOCALAPPDATA%\webp-paste\`.
+트레이 아이콘 → 복사 → `Ctrl+V`. WebP만 (AVIF 없음). 임시 파일: `%LOCALAPPDATA%\clipslim\`.
 
 ## 웹 페이지 (드래그/저장)
 
@@ -123,7 +123,7 @@ ImageIO는 WebP를 쓰지 못합니다. 자세한 내용: [`docs/decisions/001-e
 
 ```bash
 ./scripts/check.sh     # macOS: 다시 빌드 + fixtures/screenshot.png 인코드
-git tag v1.0.1 && git push origin v1.0.1   # GitHub Release (맥 zip + 윈도우 exe)
+git tag v1.0.3 && git push origin v1.0.3   # GitHub Release (맥 zip + 윈도우 exe)
 ```
 
 `scripts/check.sh`는 픽스처보다 작은 RIFF/WEBP를 계속 만들어야 합니다. 에이전트 규칙: [`AGENTS.md`](../../AGENTS.md). 스펙: [`docs/superpowers/specs/`](../superpowers/specs/).

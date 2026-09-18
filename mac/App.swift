@@ -14,8 +14,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private var convertGen = 0
   private let toast = Toast()
 
-  private let onKey = "webp-paste.on"
-  private let notifyKey = "webp-paste.notify"
+  private let onKey = "clipslim.on"
+  private let notifyKey = "clipslim.notify"
 
   private var isOn: Bool {
     get {

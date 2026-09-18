@@ -5,7 +5,7 @@ using SixLabors.ImageSharp.Formats.Webp;
 using SixLabors.ImageSharp.Processing;
 using Img = SixLabors.ImageSharp.Image;
 
-namespace WebpPaste;
+namespace ClipSlim;
 
 static class Native
 {
@@ -40,7 +40,7 @@ static class Convert
     {
         var dir = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "webp-paste");
+            "clipslim");
         Directory.CreateDirectory(dir);
         return dir;
     }

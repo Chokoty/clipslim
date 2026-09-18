@@ -84,7 +84,7 @@ open mac/dist/clipslim.app
 
 Menu bar icon on → copy a screenshot → paste into the canvas. Original PNG: uncheck **변환**. Format: **포맷 → WebP / AVIF**.
 
-Temps: `~/Library/Caches/webp-paste/`.
+Temps: `~/Library/Caches/clipslim/`.
 
 ### Windows
 
@@ -97,7 +97,7 @@ Or build with [.NET 8 SDK](https://dot.net):
 ./win/dist/clipslim.exe
 ```
 
-Tray icon → copy → `Ctrl+V`. WebP only (no AVIF). Temps: `%LOCALAPPDATA%\webp-paste\`.
+Tray icon → copy → `Ctrl+V`. WebP only (no AVIF). Temps: `%LOCALAPPDATA%\clipslim\`.
 
 ## Web fallback
 
@@ -123,7 +123,7 @@ ImageIO cannot write WebP. Details: [`docs/decisions/001-encode-backends.md`](do
 
 ```bash
 ./scripts/check.sh     # macOS: rebuild + encode fixtures/screenshot.png
-git tag v1.0.1 && git push origin v1.0.1   # GitHub Release (macOS zip + Windows exe)
+git tag v1.0.3 && git push origin v1.0.3   # GitHub Release (macOS zip + Windows exe)
 ```
 
 `scripts/check.sh` must keep producing a RIFF/WEBP smaller than the fixture. Agent rules: [`AGENTS.md`](AGENTS.md). Specs: [`docs/superpowers/specs/`](docs/superpowers/specs/).

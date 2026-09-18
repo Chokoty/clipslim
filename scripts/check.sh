@@ -1,11 +1,11 @@
 #!/bin/zsh
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-BIN="$ROOT/mac/dist/clipslim.app/Contents/MacOS/WebPPaste"
+BIN="$ROOT/mac/dist/clipslim.app/Contents/MacOS/ClipSlim"
 
 "$ROOT/mac/build.sh"
 
-tmp="$(mktemp -d /tmp/webp-paste.XXXXXX)"
+tmp="$(mktemp -d /tmp/clipslim.XXXXXX)"
 trap 'rm -rf "$tmp"' EXIT
 webp="$tmp/out.webp"
 avif="$tmp/out.avif"
