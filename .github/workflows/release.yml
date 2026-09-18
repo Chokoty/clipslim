@@ -84,7 +84,7 @@ jobs:
           MAC_SHA=$(cut -d' ' -f1 out/checksums.txt | sed -n '1p')
           WIN_SHA=$(cut -d' ' -f1 out/checksums.txt | sed -n '2p')
           cat > notes.md <<EOF
-          Copy a screenshot — it's automatically compressed to WebP. Menu bar on Mac, tray on Windows. The image never leaves the machine.
+          Copy a screenshot. Paste a smaller file. Menu bar on Mac, tray on Windows. The image never leaves the machine.
 
           ## Downloads
 

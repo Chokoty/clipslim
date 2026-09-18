@@ -44,7 +44,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     lastStatus = "복사하면 \(format.label)로 바꿉니다"
     statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     if let btn = statusItem.button {
-      btn.image = NSImage(systemSymbolName: "photo.on.rectangle.angled", accessibilityDescription: "webp-paste")
+      btn.image = NSImage(systemSymbolName: "photo.on.rectangle.angled", accessibilityDescription: "clipslim")
       btn.image?.isTemplate = true
     }
     rebuildMenu()

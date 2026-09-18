@@ -1,6 +1,6 @@
 # Agent notes
 
-Local clipboard compressor. Copy an image → clipboard becomes a small WebP (or AVIF on Mac) file automatically. Images never leave the machine. No server, no accounts, no extra UI.
+clipslim is a local clipboard compressor. Copy an image and the clipboard becomes a small WebP (or AVIF on Mac) file. Images never leave the machine. No server, no accounts, no extra UI.
 
 ## Skills
 

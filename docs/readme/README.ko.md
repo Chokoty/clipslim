@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <strong>이미지를 복사하면 자동으로 WebP로 압축합니다.</strong><br/>
+  <strong>스크린샷을 복사하면, 작은 파일을 붙입니다.</strong><br/>
   맥은 메뉴 막대, 윈도우는 트레이. 이미지는 이 컴퓨터 밖으로 나가지 않습니다.
 </p>
 
@@ -22,7 +22,7 @@
   <img src="../assets/hero.png" alt="PNG 스크린샷을 WebP로 줄여 tldraw / Excalidraw에 붙이는 흐름" width="960" />
 </p>
 
-tldraw와 Obsidian Excalidraw는 클립보드에 있는 것을 그대로 붙입니다. PNG 스크린샷은 용량이 큽니다. Chrome은 클립보드에 WebP를 쓰지 못하므로 (`NotAllowedError`), 이 앱은 **파일**을 올려 둡니다. `⌘V` / `Ctrl+V`가 그 파일을 붙입니다.
+tldraw와 Obsidian Excalidraw는 클립보드에 있는 것을 그대로 붙입니다. PNG 스크린샷은 용량이 큽니다. Chrome은 클립보드에 WebP를 쓰지 못하므로 (`NotAllowedError`), clipslim은 **파일**을 올려 둡니다 (WebP, 맥에서는 AVIF도). `⌘V` / `Ctrl+V`가 그 파일을 붙입니다.
 
 픽스처 PNG(1600×900, 63.3 KB)는 맥에서 **8.6 KB WebP (−86%)**.
 

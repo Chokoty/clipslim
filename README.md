@@ -14,15 +14,15 @@
 </p>
 
 <p align="center">
-  <strong>Copy any image — automatically compressed to WebP.</strong><br/>
+  <strong>Copy a screenshot. Paste a smaller file.</strong><br/>
   Menu bar on Mac, tray on Windows. The image never leaves the machine.
 </p>
 
 <p align="center">
-  <img src="docs/assets/hero.png" alt="Copy a PNG screenshot, shrink it to WebP, paste into tldraw or Excalidraw" width="960" />
+  <img src="docs/assets/hero.png" alt="Copy a PNG screenshot, shrink it, paste into tldraw or Excalidraw" width="960" />
 </p>
 
-tldraw and Obsidian Excalidraw take whatever is on the clipboard. A PNG screenshot is large. Chrome will not put WebP on the clipboard (`NotAllowedError`), so this app writes a **file** instead. `⌘V` / `Ctrl+V` pastes that file.
+tldraw and Obsidian Excalidraw take whatever is on the clipboard. A PNG screenshot is large. Chrome will not put WebP on the clipboard (`NotAllowedError`), so clipslim writes a **file** instead (WebP, or AVIF on Mac). `⌘V` / `Ctrl+V` pastes that file.
 
 On the fixture PNG (1600×900, 63.3 KB) the Mac encoder produces **8.6 KB WebP (−86%)**.
 
@@ -34,7 +34,7 @@ On the fixture PNG (1600×900, 63.3 KB) the Mac encoder produces **8.6 KB WebP (
 
 ### Menu bar / tray
 
-Always on. Copy an image; the clipboard becomes a `.webp` file. Turn **변환** off when you need the original PNG.
+clipslim slims the clipboard. Copy an image, paste a small file. WebP by default, AVIF on Mac. Turn **변환** off when you need the original PNG.
 
 </td>
 <td width="50%" valign="top">

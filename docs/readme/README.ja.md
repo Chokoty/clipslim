@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <strong>画像をコピーするだけで自動的に WebP へ圧縮します。</strong><br/>
+  <strong>スクリーンショットをコピーして、小さいファイルを貼り付けます。</strong><br/>
   Mac はメニューバー、Windows はトレイ。画像はこのマシンの外に出ません。
 </p>
 
@@ -22,7 +22,7 @@
   <img src="../assets/hero.png" alt="PNG のスクリーンショットを WebP に縮小して tldraw / Excalidraw に貼る流れ" width="960" />
 </p>
 
-tldraw と Obsidian Excalidraw は、クリップボードにあるものをそのまま貼ります。PNG のスクリーンショットはサイズが大きいです。Chrome はクリップボードに WebP を書けないので (`NotAllowedError`)、このアプリは **ファイル** を載せます。`⌘V` / `Ctrl+V` がそのファイルを貼ります。
+tldraw と Obsidian Excalidraw は、クリップボードにあるものをそのまま貼ります。PNG のスクリーンショットはサイズが大きいです。Chrome はクリップボードに WebP を書けないので (`NotAllowedError`)、clipslim は **ファイル** を載せます（WebP、Mac では AVIF も）。`⌘V` / `Ctrl+V` がそのファイルを貼ります。
 
 フィクスチャ PNG（1600×900、63.3 KB）は Mac で **8.6 KB WebP（−86%）** になります。
 

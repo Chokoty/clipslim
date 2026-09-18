@@ -158,6 +158,7 @@ enum Converter {
 
     switch format {
     case .webp:
+      unpremultiplyRGBA(raw, pixelCount: w * h)
       var outPtr: UnsafeMutablePointer<UInt8>?
       var outLen: Int = 0
       let ok = webp_encode_rgba(raw, Int32(w), Int32(h), Int32(stride), quality, &outPtr, &outLen)
@@ -231,6 +232,20 @@ enum Converter {
       return cg
     }
     throw ConvertError.noCGImage
+  }
+
+  // WebPEncodeRGBA wants straight alpha. CGContext only draws premultiplied.
+  private static func unpremultiplyRGBA(_ p: UnsafeMutablePointer<UInt8>, pixelCount: Int) {
+    var i = 0
+    while i < pixelCount {
+      let a = Int(p[i * 4 + 3])
+      if a != 0 && a != 255 {
+        p[i * 4] = UInt8(min(255, Int(p[i * 4]) * 255 / a))
+        p[i * 4 + 1] = UInt8(min(255, Int(p[i * 4 + 1]) * 255 / a))
+        p[i * 4 + 2] = UInt8(min(255, Int(p[i * 4 + 2]) * 255 / a))
+      }
+      i += 1
+    }
   }
 
   private static func scaledSize(width: Int, height: Int) -> (Int, Int) {

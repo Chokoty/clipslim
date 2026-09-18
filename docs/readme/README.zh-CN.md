@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <strong>复制图片，自动压缩为 WebP。</strong><br/>
+  <strong>复制截图，粘贴体积更小的文件。</strong><br/>
   Mac 在菜单栏，Windows 在托盘。图片不会离开这台电脑。
 </p>
 
@@ -22,7 +22,7 @@
   <img src="../assets/hero.png" alt="把 PNG 截图压成 WebP，再贴进 tldraw / Excalidraw" width="960" />
 </p>
 
-tldraw 和 Obsidian Excalidraw 会原样粘贴剪贴板里的内容。PNG 截图体积大。Chrome 不能把 WebP 写入剪贴板（`NotAllowedError`），所以这个应用改放一个 **文件**。`⌘V` / `Ctrl+V` 贴的就是那个文件。
+tldraw 和 Obsidian Excalidraw 会原样粘贴剪贴板里的内容。PNG 截图体积大。Chrome 不能把 WebP 写入剪贴板（`NotAllowedError`），所以 clipslim 改放一个 **文件**（WebP，Mac 上也可以是 AVIF）。`⌘V` / `Ctrl+V` 贴的就是那个文件。
 
 测试用 PNG（1600×900，63.3 KB）在 Mac 上会得到 **8.6 KB WebP（−86%）**。
 
