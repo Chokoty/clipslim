@@ -34,7 +34,7 @@ swiftc -O \
   "$ROOT/App.swift" \
   "$ROOT/main.swift" \
   "$OBJ" "$LIBWEBP" "$SHARP" \
-  -framework AppKit -framework ImageIO \
+  -framework AppKit -framework ImageIO -framework ServiceManagement \
   -o "$MACOS/ClipSlim"
 
 echo "built $DIST"

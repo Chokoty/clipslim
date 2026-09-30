@@ -1,6 +1,7 @@
 using System.Collections.Specialized;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
+using Microsoft.Win32;
 using SixLabors.ImageSharp.Formats.Webp;
 using SixLabors.ImageSharp.Processing;
 using Img = SixLabors.ImageSharp.Image;
@@ -139,6 +140,7 @@ sealed class App : Form
     readonly ContextMenuStrip menu;
     readonly ToolStripMenuItem toggle;
     readonly ToolStripMenuItem notifyToggle;
+    readonly ToolStripMenuItem loginToggle;
     readonly ToolStripMenuItem sourceItem;
     readonly ToolStripMenuItem status;
     readonly ToolStripMenuItem save;
@@ -170,11 +172,17 @@ sealed class App : Form
             Checked = notify,
             CheckOnClick = false,
         };
+        loginToggle = new ToolStripMenuItem("로그인 시 실행", null, (_, _) => ToggleLogin())
+        {
+            Checked = LoginEnabled(),
+            CheckOnClick = false,
+        };
         sourceItem = new ToolStripMenuItem("") { Enabled = false, Visible = false };
         status = new ToolStripMenuItem(lastStatus) { Enabled = false };
         save = new ToolStripMenuItem("저장…", null, (_, _) => SaveLast()) { Enabled = false };
         menu.Items.Add(toggle);
         menu.Items.Add(notifyToggle);
+        menu.Items.Add(loginToggle);
         menu.Items.Add(sourceItem);
         menu.Items.Add(status);
         menu.Items.Add(save);
@@ -328,6 +336,44 @@ sealed class App : Form
         notify = !notify;
         SaveNotify();
         notifyToggle.Checked = notify;
+    }
+
+    void ToggleLogin()
+    {
+        try
+        {
+            SetLogin(!LoginEnabled());
+            loginToggle.Checked = LoginEnabled();
+        }
+        catch (Exception ex)
+        {
+            Fail("실패: " + ex.Message);
+        }
+    }
+
+    const string RunKey = @"Software\Microsoft\Windows\CurrentVersion\Run";
+    const string RunName = "clipslim";
+
+    static bool LoginEnabled()
+    {
+        try
+        {
+            using var key = Registry.CurrentUser.OpenSubKey(RunKey);
+            return key?.GetValue(RunName) is string;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    static void SetLogin(bool enable)
+    {
+        using var key = Registry.CurrentUser.CreateSubKey(RunKey);
+        if (enable)
+            key.SetValue(RunName, "\"" + Application.ExecutablePath + "\"");
+        else
+            key.DeleteValue(RunName, false);
     }
 
     void ApplyOnState()

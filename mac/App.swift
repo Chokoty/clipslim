@@ -1,5 +1,6 @@
 import AppKit
 import Foundation
+import ServiceManagement
 import UniformTypeIdentifiers
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
@@ -136,6 +137,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     notifyItem.target = self
     menu.addItem(notifyItem)
 
+    let loginItem = NSMenuItem(title: "로그인 시 실행", action: #selector(toggleLogin), keyEquivalent: "")
+    loginItem.state = SMAppService.mainApp.status == .enabled ? .on : .off
+    loginItem.target = self
+    menu.addItem(loginItem)
+
     let formatMenu = NSMenu()
     for f in OutputFormat.allCases {
       let item = NSMenuItem(title: f.label, action: #selector(pickFormat(_:)), keyEquivalent: "")
@@ -228,6 +234,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
   @objc private func toggleNotify() {
     isNotify.toggle()
+    rebuildMenu()
+  }
+
+  @objc private func toggleLogin() {
+    do {
+      if SMAppService.mainApp.status == .enabled {
+        try SMAppService.mainApp.unregister()
+      } else {
+        try SMAppService.mainApp.register()
+      }
+    } catch {
+      fail("실패: \(error.localizedDescription)")
+      return
+    }
     rebuildMenu()
   }
 
