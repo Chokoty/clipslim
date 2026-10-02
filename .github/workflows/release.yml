@@ -96,7 +96,7 @@ jobs:
           | macOS (Apple Silicon) | [clipslim-macos-arm64.zip](https://github.com/${{ github.repository }}/releases/download/${TAG}/clipslim-macos-arm64.zip) |
           | Windows (x64) | [clipslim-windows-x64.exe](https://github.com/${{ github.repository }}/releases/download/${TAG}/clipslim-windows-x64.exe) |
 
-          macOS is unsigned: first launch is **right-click → Open**. Windows is unsigned: SmartScreen may warn. The Windows build is self-contained (.NET 8 bundled).
+          macOS has an ad-hoc signature, not a Developer ID, and is not notarized. First launch is **right-click → Open**. Windows is unsigned: SmartScreen may warn. The Windows build is self-contained (.NET 8 bundled).
 
           ## SHA-256
 

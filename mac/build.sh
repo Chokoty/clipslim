@@ -37,4 +37,6 @@ swiftc -O \
   -framework AppKit -framework ImageIO -framework ServiceManagement \
   -o "$MACOS/ClipSlim"
 
+codesign --force --sign - "$DIST"
+
 echo "built $DIST"

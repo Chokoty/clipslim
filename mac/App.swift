@@ -1,4 +1,5 @@
 import AppKit
+import Darwin
 import Foundation
 import ServiceManagement
 import UniformTypeIdentifiers
@@ -40,6 +41,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   func applicationDidFinishLaunching(_ notification: Notification) {
+    if detachFromTerminalIfNeeded() { return }
+    start()
+  }
+
+  private var started = false
+
+  private func start() {
+    if started { return }
+    started = true
     ignoreChange = NSPasteboard.general.changeCount
     lastChange = ignoreChange
     lastStatus = "복사하면 \(format.label)로 바꿉니다"
@@ -53,6 +63,27 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       self?.tick()
     }
     RunLoop.main.add(timer!, forMode: .common)
+    if CommandLine.arguments.contains("--enable-login") {
+      registerLogin()
+    } else if isatty(STDIN_FILENO) != 0 && Bundle.main.bundleURL.pathExtension != "app" {
+      fail("실패: clipslim.app으로 실행하세요")
+    }
+  }
+
+  private func detachFromTerminalIfNeeded() -> Bool {
+    guard !CommandLine.arguments.contains("--enable-login") else { return false }
+    guard isatty(STDIN_FILENO) != 0 else { return false }
+    let bundle = Bundle.main.bundleURL
+    guard bundle.pathExtension == "app" else { return false }
+    relaunch(bundle, args: []) { [weak self] error in
+      if let error {
+        self?.start()
+        self?.fail("실패: \(error.localizedDescription)")
+        return
+      }
+      NSApp.terminate(nil)
+    }
+    return true
   }
 
   private func tick() {
@@ -137,8 +168,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     notifyItem.target = self
     menu.addItem(notifyItem)
 
-    let loginItem = NSMenuItem(title: "로그인 시 실행", action: #selector(toggleLogin), keyEquivalent: "")
-    loginItem.state = SMAppService.mainApp.status == .enabled ? .on : .off
+    let presence = LoginPresence.read()
+    let loginTitle = presence == .needsApproval ? "로그인 시 실행 (승인 필요)" : "로그인 시 실행"
+    let loginItem = NSMenuItem(title: loginTitle, action: #selector(toggleLogin), keyEquivalent: "")
+    switch presence {
+    case .on: loginItem.state = .on
+    case .needsApproval: loginItem.state = .mixed
+    case .off: loginItem.state = .off
+    }
     loginItem.target = self
     menu.addItem(loginItem)
 
@@ -238,21 +275,140 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   @objc private func toggleLogin() {
-    do {
-      if SMAppService.mainApp.status == .enabled {
-        try SMAppService.mainApp.unregister()
-      } else {
-        try SMAppService.mainApp.register()
+    switch LoginPresence.read() {
+    case .on:
+      do { try SMAppService.mainApp.unregister() } catch {
+        fail("실패: \(error.localizedDescription)")
+        return
       }
-    } catch {
+      rebuildMenu()
+    case .needsApproval:
+      SMAppService.openSystemSettingsLoginItems()
+    case .off:
+      enableLogin()
+    }
+  }
+
+  private func enableLogin() {
+    let bundle = Bundle.main.bundleURL
+    guard bundle.pathExtension == "app" else {
+      fail("실패: clipslim.app으로 실행하세요")
+      return
+    }
+    if isStableInstall(bundle) {
+      registerLogin()
+      return
+    }
+    let dest: URL
+    do { dest = try copyToApplications(from: bundle) } catch {
       fail("실패: \(error.localizedDescription)")
       return
+    }
+    relaunch(dest, args: ["--enable-login"]) { [weak self] error in
+      if let error {
+        self?.fail("실패: \(error.localizedDescription)")
+        return
+      }
+      NSApp.terminate(nil)
+    }
+  }
+
+  private func registerLogin() {
+    do { try SMAppService.mainApp.register() } catch {
+      fail("실패: \(error.localizedDescription)")
+      return
+    }
+    if SMAppService.mainApp.status == .requiresApproval {
+      SMAppService.openSystemSettingsLoginItems()
     }
     rebuildMenu()
   }
 
+  private func applicationTargets() -> [URL] {
+    let home = FileManager.default.homeDirectoryForCurrentUser
+      .appendingPathComponent("Applications/clipslim.app")
+    return [
+      URL(fileURLWithPath: "/Applications/clipslim.app"),
+      home,
+    ]
+  }
+
+  private func samePath(_ a: URL, _ b: URL) -> Bool {
+    let left = a.resolvingSymlinksInPath().standardizedFileURL.path
+    let right = b.resolvingSymlinksInPath().standardizedFileURL.path
+    return left.caseInsensitiveCompare(right) == .orderedSame
+  }
+
+  private func isStableInstall(_ url: URL) -> Bool {
+    applicationTargets().contains { samePath($0, url) }
+  }
+
+  private func copyToApplications(from src: URL) throws -> URL {
+    let fm = FileManager.default
+    var last: Error?
+    for dest in applicationTargets() {
+      if samePath(src, dest) { return dest }
+      let folder = dest.deletingLastPathComponent()
+      let staging = folder.appendingPathComponent(".clipslim-install.app")
+      do {
+        try fm.createDirectory(at: folder, withIntermediateDirectories: true)
+        if fm.fileExists(atPath: staging.path) { try fm.removeItem(at: staging) }
+        try fm.copyItem(at: src, to: staging)
+        let backup = folder.appendingPathComponent(".clipslim-previous.app")
+        if fm.fileExists(atPath: backup.path) { try fm.removeItem(at: backup) }
+        if fm.fileExists(atPath: dest.path) { try fm.moveItem(at: dest, to: backup) }
+        do {
+          try fm.moveItem(at: staging, to: dest)
+        } catch {
+          if fm.fileExists(atPath: backup.path) { try? fm.moveItem(at: backup, to: dest) }
+          throw error
+        }
+        if fm.fileExists(atPath: backup.path) { try? fm.removeItem(at: backup) }
+        clearQuarantine(dest)
+        return dest
+      } catch {
+        if fm.fileExists(atPath: staging.path) { try? fm.removeItem(at: staging) }
+        last = error
+      }
+    }
+    throw last ?? CocoaError(.fileWriteUnknown)
+  }
+
+  private func clearQuarantine(_ url: URL) {
+    let task = Process()
+    task.executableURL = URL(fileURLWithPath: "/usr/bin/xattr")
+    task.arguments = ["-dr", "com.apple.quarantine", url.path]
+    do {
+      try task.run()
+      task.waitUntilExit()
+    } catch {}
+  }
+
+  private func relaunch(_ url: URL, args: [String], done: @escaping (Error?) -> Void) {
+    let config = NSWorkspace.OpenConfiguration()
+    config.arguments = args
+    config.createsNewApplicationInstance = true
+    NSWorkspace.shared.openApplication(at: url, configuration: config) { _, error in
+      DispatchQueue.main.async { done(error) }
+    }
+  }
+
   @objc private func quit() {
     NSApp.terminate(nil)
+  }
+}
+
+private enum LoginPresence {
+  case off
+  case on
+  case needsApproval
+
+  static func read() -> LoginPresence {
+    switch SMAppService.mainApp.status {
+    case .enabled: return .on
+    case .requiresApproval: return .needsApproval
+    default: return .off
+    }
   }
 }
 

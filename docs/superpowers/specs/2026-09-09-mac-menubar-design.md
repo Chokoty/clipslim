@@ -6,8 +6,9 @@ Personal always-on converter: copy an image, clipboard becomes a small WebP file
 - Menu bar icon. Default on.
 - On: new image on the clipboard is resized (long edge 2560) and written as WebP or AVIF quality 82, then the clipboard is replaced with that file.
 - Off: clipboard is not touched. Turning on or changing format does not convert whatever is already there.
-- Menu: 변환 (checkbox), 포맷 (WebP / AVIF), last size `원본 → N format (−N%)`, 저장… (last file copy via save panel), 종료.
-- No windows, sliders, login item, or network.
+- Menu: 변환 (checkbox), 알림, 로그인 시 실행, 포맷 (WebP / AVIF), last size `원본 → N format (−N%)`, 저장… (last file copy via save panel), 종료.
+- 로그인 시 실행 copies `clipslim.app` to `/Applications`, or `~/Applications` if that copy fails, then registers it with `SMAppService`. Default off. `requiresApproval` opens System Settings.
+- No settings window, sliders, or network.
 
 ## Convert / skip
 Convert: PNG, JPEG, TIFF, HEIC, BMP, or a single image file, while on. The other format (WebP↔AVIF) is converted if the user copies that file.

@@ -72,7 +72,9 @@ Same quality and max edge. Clipboard write is a file drop list, not a DIB, so ca
 
 ### macOS
 
-Unzip and open `clipslim.app`. Unsigned: first launch is **right-click → Open**.
+Unzip and open `clipslim.app`. `Contents/MacOS/ClipSlim` starts in Terminal, and closing Terminal quits clipslim. The build has no Developer ID signature. First launch is **right-click → Open**.
+
+**로그인 시 실행** copies the app into `/Applications`, or into `~/Applications` when that copy fails, then registers a login item. If macOS asks for approval, allow clipslim in System Settings under General, Login Items. A download from GitHub can still refuse to open at login until the app is notarized.
 
 Or build:
 
