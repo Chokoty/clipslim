@@ -8,10 +8,29 @@
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <AssemblyName>clipslim</AssemblyName>
     <RootNamespace>ClipSlim</RootNamespace>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <ApplicationIcon>../docs/assets/icon.ico</ApplicationIcon>
     <InvariantGlobalization>true</InvariantGlobalization>
+    <SatelliteResourceLanguages>ko</SatelliteResourceLanguages>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
   </PropertyGroup>
+  <Target Name="DropUnusedWpf" BeforeTargets="_ComputeFilesToBundle">
+    <ItemGroup>
+      <ResolvedFileToPublish Remove="@(ResolvedFileToPublish)"
+        Condition="$([System.String]::Copy('%(Filename)').StartsWith('Presentation'))
+          or $([System.String]::Copy('%(Filename)').StartsWith('WindowsBase'))
+          or $([System.String]::Copy('%(Filename)').StartsWith('ReachFramework'))
+          or $([System.String]::Copy('%(Filename)').StartsWith('System.Windows.Controls.Ribbon'))
+          or $([System.String]::Copy('%(Filename)').StartsWith('System.Xaml'))
+          or $([System.String]::Copy('%(Filename)').StartsWith('System.Printing'))
+          or $([System.String]::Copy('%(Filename)').StartsWith('DirectWriteForwarder'))
+          or $([System.String]::Copy('%(Filename)').StartsWith('PenImc'))
+          or $([System.String]::Copy('%(Filename)').StartsWith('wpfgfx'))
+          or $([System.String]::Copy('%(Filename)').StartsWith('D3DCompiler_47'))
+          or $([System.String]::Copy('%(Filename)').StartsWith('WindowsFormsIntegration'))
+          or $([System.String]::Copy('%(Filename)').StartsWith('System.Windows.Presentation'))" />
+    </ItemGroup>
+  </Target>
   <ItemGroup>
     <PackageReference Include="SixLabors.ImageSharp" Version="3.1.11" />
   </ItemGroup>
