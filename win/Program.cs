@@ -107,7 +107,7 @@ static class Convert
         }
     }
 
-    public static int Cli(string input, string output)
+    public static int Cli(string input, string output, bool report)
     {
         try
         {
@@ -115,24 +115,13 @@ static class Convert
             Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(output)) ?? ".");
             File.WriteAllBytes(output, data);
             var orig = new FileInfo(input).Length;
-            WriteLine($"{Bytes(orig)} → {Bytes(data.Length)} WebP");
+            if (report) Console.WriteLine($"{Bytes(orig)} → {Bytes(data.Length)} WebP");
             return 0;
         }
         catch (Exception ex)
         {
-            WriteLine(ex.Message, Console.Error);
+            if (report) Console.Error.WriteLine(ex.Message);
             return 1;
-        }
-    }
-
-    static void WriteLine(string text, TextWriter? writer = null)
-    {
-        try
-        {
-            (writer ?? Console.Out).WriteLine(text);
-        }
-        catch (IOException)
-        {
         }
     }
 }
@@ -470,13 +459,25 @@ static class Program
     static int Main(string[] args)
     {
         if (args.Length >= 3 && args[0] == "--convert")
-        {
-            Native.AttachConsole(Native.AttachParentProcess);
-            return Convert.Cli(args[1], args[2]);
-        }
+            return Convert.Cli(args[1], args[2], TryUseParentConsole());
 
         ApplicationConfiguration.Initialize();
         Application.Run(new App());
         return 0;
+    }
+
+    static bool TryUseParentConsole()
+    {
+        if (!Native.AttachConsole(Native.AttachParentProcess)) return false;
+        try
+        {
+            Console.SetOut(new StreamWriter(Console.OpenStandardOutput()) { AutoFlush = true });
+            Console.SetError(new StreamWriter(Console.OpenStandardError()) { AutoFlush = true });
+            return true;
+        }
+        catch (IOException)
+        {
+            return false;
+        }
     }
 }
