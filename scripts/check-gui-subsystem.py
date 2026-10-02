@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-"""Exit 0 when a Windows exe is IMAGE_SUBSYSTEM_WINDOWS_GUI (2)."""
 
 import pathlib
 import struct
