@@ -74,7 +74,9 @@ WebP は libwebp を静的リンクします（Homebrew はビルド時だけ）
 
 ### macOS
 
-zip を解凍して `clipslim.app` を開きます。未署名なので、初回は **右クリック → 開く**。
+zip を解凍して `clipslim.app` を開きます。`Contents/MacOS/ClipSlim` はターミナルで起動し、ターミナルを閉じると clipslim も終了します。Developer ID 署名はありません。初回は **右クリック → 開く**。
+
+**로그인 시 실행** はアプリを `/Applications` にコピーします。コピーできないときは `~/Applications` にコピーしてからログイン項目へ登録します。macOS が承認を待つときは、システム設定の一般、ログイン項目で clipslim を許可してください。GitHub から受け取ったビルドは、公証されるまでログイン時の起動を拒否することがあります。
 
 またはビルド:
 

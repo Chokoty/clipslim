@@ -74,7 +74,9 @@ WebP 静态链接 libwebp（Homebrew 只在构建时需要）。AVIF 走 ImageIO
 
 ### macOS
 
-解压后打开 `clipslim.app`。未签名：第一次请 **右键 → 打开**。
+解压后打开 `clipslim.app`。`Contents/MacOS/ClipSlim` 会在终端里启动，关掉终端就会退出 clipslim。构建没有 Developer ID 签名。第一次请 **右键 → 打开**。
+
+**로그인 시 실행** 会把 app 复制到 `/Applications`。如果复制失败，就复制到 `~/Applications`，然后登记为登录项。如果 macOS 等待批准，请在系统设置的通用、登录项里允许 clipslim。从 GitHub 下载的构建在公证之前，登录时仍可能拒绝启动。
 
 或自行构建：
 

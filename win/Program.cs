@@ -11,24 +11,12 @@ namespace ClipSlim;
 static class Native
 {
     public const int WmClipboardUpdate = 0x031D;
-    public const int AttachParentProcess = -1;
 
     [DllImport("user32.dll", SetLastError = true)]
     public static extern bool AddClipboardFormatListener(IntPtr hwnd);
 
     [DllImport("user32.dll", SetLastError = true)]
     public static extern bool RemoveClipboardFormatListener(IntPtr hwnd);
-
-    [DllImport("kernel32.dll")]
-    public static extern bool AttachConsole(int pid);
-
-    [DllImport("kernel32.dll")]
-    public static extern IntPtr GetConsoleWindow();
-
-    [DllImport("user32.dll")]
-    public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-
-    public const int SwHide = 0;
 }
 
 static class Convert
@@ -122,13 +110,11 @@ static class Convert
             var data = EncodeFile(input);
             Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(output)) ?? ".");
             File.WriteAllBytes(output, data);
-            var orig = new FileInfo(input).Length;
-            Console.WriteLine($"{Bytes(orig)} → {Bytes(data.Length)} WebP");
             return 0;
         }
         catch (Exception ex)
         {
-            Console.Error.WriteLine(ex.Message);
+            try { Console.Error.WriteLine(ex.Message); } catch (IOException) { }
             return 1;
         }
     }
@@ -467,13 +453,7 @@ static class Program
     static int Main(string[] args)
     {
         if (args.Length >= 3 && args[0] == "--convert")
-        {
-            Native.AttachConsole(Native.AttachParentProcess);
             return Convert.Cli(args[1], args[2]);
-        }
-
-        var console = Native.GetConsoleWindow();
-        if (console != IntPtr.Zero) Native.ShowWindow(console, Native.SwHide);
 
         ApplicationConfiguration.Initialize();
         Application.Run(new App());

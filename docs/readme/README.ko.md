@@ -72,7 +72,9 @@ WebP는 libwebp를 정적 링크합니다 (Homebrew는 빌드할 때만). AVIF�
 
 ### macOS
 
-zip을 풀고 `clipslim.app`을 엽니다. 서명 없음: 처음엔 **우클릭 → 열기**.
+zip을 풀고 `clipslim.app`을 엽니다. `Contents/MacOS/ClipSlim`은 터미널에서 켜지고, 터미널을 닫으면 clipslim도 종료됩니다. Developer ID 서명은 없습니다. 처음엔 **우클릭 → 열기**.
+
+**로그인 시 실행**은 앱을 `/Applications`에 복사합니다. 그 복사가 실패하면 `~/Applications`에 복사한 뒤 로그인 항목으로 등록합니다. macOS가 승인을 기다리면 시스템 설정의 일반, 로그인 항목에서 clipslim을 허용하세요. GitHub에서 받은 빌드는 공증 전까지 로그인 때 실행이 거절될 수 있습니다.
 
 또는 빌드:
 
