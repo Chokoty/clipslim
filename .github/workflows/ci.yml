@@ -32,8 +32,8 @@ jobs:
         shell: pwsh
         run: |
           $out = Join-Path $env:TEMP "out.webp"
-          & ./win/dist/clipslim.exe --convert ./fixtures/screenshot.png $out
-          if (-not (Test-Path $out)) { throw "convert produced no file (exit $LASTEXITCODE)" }
+          $p = Start-Process -FilePath ./win/dist/clipslim.exe -ArgumentList @('--convert', './fixtures/screenshot.png', $out) -Wait -PassThru
+          if ($p.ExitCode -ne 0 -or -not (Test-Path $out)) { throw "convert failed (exit $($p.ExitCode))" }
           $bytes = [IO.File]::ReadAllBytes($out)
           $riff = [Text.Encoding]::ASCII.GetString($bytes[0..3])
           $tag = [Text.Encoding]::ASCII.GetString($bytes[8..11])
