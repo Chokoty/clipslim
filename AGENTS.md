@@ -18,6 +18,17 @@ Use **ponytail** (simplest thing that works) and **superpowers** (TDD, verify be
 
 Needs Homebrew `webp` on macOS (`libwebp.a` + `libsharpyuv.a`, statically linked). Windows encode is ImageSharp (pure managed). Runtime brew is not required on Mac.
 
+## Linux agents
+
+Menu-bar and tray apps run on macOS and Windows. This image has the .NET 8 SDK at `/usr/share/dotnet` (`dotnet` on `PATH`) and `libwebp-dev`.
+
+```bash
+dotnet build win/clipslim.csproj -c Release
+cc -c -O2 -I/usr/include mac/encode_webp.c -o /tmp/encode_webp.o
+```
+
+The web fallback listens on http://127.0.0.1:8765 (`python3 -m http.server 8765 --bind 127.0.0.1`). Choose `fixtures/screenshot.png` and confirm the page shows a smaller WebP.
+
 ## Behavior that must stay
 
 - Copy image → clipboard becomes a **file** (WebP, or AVIF on Mac), not a PNG payload. Canvases (tldraw / Excalidraw) take the file on paste.
