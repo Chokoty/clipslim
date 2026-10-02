@@ -38,6 +38,9 @@ jobs:
       - name: Publish
         shell: pwsh
         run: ./win/build.ps1
+      - name: Require GUI subsystem
+        shell: pwsh
+        run: python scripts/check-gui-subsystem.py ./win/dist/clipslim.exe
       - name: Convert fixture
         shell: pwsh
         run: |
